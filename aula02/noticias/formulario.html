@@ -1,19 +1,32 @@
-<h1>Formulario</h1>
-
 <form name="form">
-	<div class="form-group">
-		<label>Titulo</label>
-		<div class="input-group">
-			<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-			
-			<input type="text" class="form-control" name="titulo" placeholder="Titulo" ng-model="noticias.form.titulo" autofocus required>
+	<div class="panel panel-default">
+		<div class="panel-heading text-center fa-2x">
+			<span ng-class="{'text-danger': form.$invalid, 'text-success': form.$valid}">Formulário de Noticias</span>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label>Titulo</label>
+				<div class="input-group">
+					
+					<input type="text" class="form-input" name="titulo" placeholder="Titulo" ng-model="noticias.form.titulo" autofocus required>
+					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Texto</label>
+				<textarea rows="10" class="form-input" name="texto" placeholder="Texto" ng-model="noticias.form.texto" required></textarea>
+			</div>
+		</div>
+		<div class="panel-footer clearfix">
+			<button class="btn btn-lg btn-warning fa-2x" ui-sref="noticias.listar">
+				<i class="fa fa-remove"></i>
+			</button>
+			<div class="pull-right">
+				<button ng-click="noticias.adicionar()" class="btn btn-lg btn-success fa-2x" ng-disabled="form.$invalid">
+					<i class="fa fa-check"></i>
+				</button>
+			</div>
 		</div>
 	</div>
-
-	<div class="form-group">
-		<label>Texto</label>
-		<textarea rows="10" class="form-control" name="texto" placeholder="Texto" ng-model="noticias.form.texto" required></textarea>
-	</div>
 </form>
-
-<button ng-click="noticias.adicionar()" class="btn btn-sm btn-primary" ng-disabled="form.$invalid">Salvar</button>

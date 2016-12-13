@@ -29,6 +29,7 @@
 
 html, body {
 	height: 100%;
+    color: #727679;
 }
 
 .navbar-inverse {
@@ -108,16 +109,57 @@ html, body {
 }
 
 .nav50 {
-	height: 50px;
+	height: 55px;
 }
 
 .nav50 .navbar-nav>li>a{
-	height: 50px;
-	line-height: 50px;
+	height: 55px;
+	line-height: 55px;
 	font-size: 13px;
 }
-
+.navbar-nav>li>a.active{
+    color: red;
+}
 .nav50 .navbar-brand {
-	height: 50px;
+	height: 55px;
 	padding: 10px 15px;
+}
+
+.form-input {
+    width: 100%;
+    border: 0;
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    font-family: 'openSans';
+    border-radius: 2px;
+    outline-color: #ccc;
+    outline-width: 3px;
+    border: 1px solid #ccc;
+}
+
+.form-input:focus,
+.form-input:focus ~ .input-group-addon{
+    border: 0;
+    background-color: #333436;
+    border-right: 0;
+    outline: 0;
+    color: #fff;
+    transition: 1s;
+}
+
+.input-group-addon:first-child {
+    border: 0;
+    border: 1px solid #ccc;
+}
+
+.panel {
+    border: 1px solid #ccc;
+}
+
+.panel-default.panel-heading {
+    background-color: #f5f5f5;
+}
+
+.panel-default.panel-footer {
+    background-color: #f5f5f5;
 }
