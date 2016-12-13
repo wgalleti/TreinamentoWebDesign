@@ -1,0 +1,8 @@
+<h1>Noticias</h1>
+<button ui-sref="noticias.formulario" class="btn btn-sm btn-primary">Adicionar</button>
+
+<article ng-repeat="noticia in noticias.data.dados">
+	<h3>{{noticia.titulo}}</h3>
+	<p>{{noticia.texto}}</p>
+	<span>{{noticia.data | date: 'dd/MM/yyyy hh:mm'}}</span>
+</article>
