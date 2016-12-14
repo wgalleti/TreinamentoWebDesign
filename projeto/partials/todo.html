@@ -1,0 +1,17 @@
+<div class="todo">
+	<ul class="list-group ">
+		<li class="list-group-item" ng-repeat="value in todo.dataService.data">
+			<span ng-class="{'todo-done': value.done}">
+				{{value.text}}
+			</span>
+			<span class="pull-right">
+				<i class="fa" ng-class="{'fa-check' : !value.done, 'fa-refresh': value.done}" ng-click="todo.done(value, $index)"></i>
+				<i class="fa fa-trash" ng-click="todo.remove(value)"></i>
+			</span>
+		</li>
+	</ul>
+</div>
+
+<button class="btn btn-success btn-circle btn-fixed">
+	<i class="fa fa-plus fa-2x"></i>
+</button>

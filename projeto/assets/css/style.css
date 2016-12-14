@@ -1,0 +1,193 @@
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto/Roboto-Regular-webfont.eot');
+    src: url('../fonts/roboto/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto/Roboto-Regular-webfont.woff') format('woff'),
+         url('../fonts/roboto/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/roboto/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'robotoregular';
+	padding-top: 105px;
+	color: #2b73b5;
+	background-color: #f1f1f1;
+	height: 1000px;
+}
+
+.navbar {
+	height: 100px;
+	font-size: 1em;
+	background-color: #f1f1f1;
+	border: 0;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+	line-height: 100px;
+	font-size: 22px;
+	padding: 0px 50px;
+	color: #97be11;
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.open>a:focus, 
+.navbar-default .navbar-nav>.open>a:hover {
+    color: #f1f1f1;
+    background-color: #97be11;
+}
+
+.navbar-brand img {
+	width: 70px;
+	margin: 0px 30px;
+}
+
+.navbar-default .dropdown-menu {
+    background-color: #97be11;
+}
+
+.navbar-default .dropdown-menu .divider {
+    background-color: #97be11;
+}
+
+.dropdown-menu {
+	border: 0;
+}
+
+
+.navbar-default .dropdown-menu>li>a {
+	font-size: 20px;
+	color: #f1f1f1;
+}
+
+.navbar-default .dropdown-menu>li>a:hover {
+    background-color: #f1f1f1;
+	color: #97be11;
+}
+
+.nav-small {
+	height: 40px;
+	opacity: .5;
+	transition: .3s;
+}
+
+.nav-small .navbar-nav>li>a {
+	line-height: 40px;
+	font-size: 14px;
+	padding: 5px 50px;
+	transition: .3s;
+}
+
+.nav-small .navbar-brand img {
+	width: 25px;
+	margin: 0px 30px;
+	transition: .3s;
+}
+
+.nav-small .dropdown-menu>li>a {
+	font-size: 14px;
+	max-width: inherit;
+	text-align: right;
+	transition: .3s;
+}
+
+#form-login {
+	width: 400px;
+	margin: 0 auto;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(151,190,17,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(151,190,17,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(151,190,17,0.75);
+}
+
+#form-login .panel {
+	font-size: 16px;
+}
+
+.btn-success {
+	background-color: #97be11;
+	border: transparent; 
+}
+
+#form-login .panel .panel-heading img {
+    padding: 0px 140px;
+}
+
+#form-login .help-block a {
+	font-size: 11px;
+}
+
+.form-control {
+    width: 100%;
+    border: 0;
+    background-color: #f1f1f1;
+    padding: 10px 15px;
+    border-radius: 2px;
+    outline-color: #ccc;
+    outline-width: 3px;
+    border: transparent;
+    background-color: #f1f1f1;
+    color: #97be11;
+}
+
+.form-control:focus,
+.form-control:focus ~ .input-group-addon{
+    border: 0;
+    background-color: #97be11;
+    color: #f1f1f1;
+    border-right: 0;
+    outline: 0;
+    transition: 1s;
+}
+
+.input-group-addon{
+    border: transparent;
+    background-color: #f1f1f1;
+    color: #97be11;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 20px;
+}
+
+.btn-fixed {
+	transition: .5s;
+	position: fixed;
+	top: 100px;
+	right: 10px;
+}
+
+
+.todo {
+	border: 1px solid #97be11;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.todo>ul>li{
+	font-size: 22px;
+	border: transparent;
+    color: #97be11;
+}
+
+.todo>ul>li:hover{
+    background-color: #97be11;
+    color: #f1f1f1;
+}
+
+
+.todo-done {
+	text-decoration: line-through;
+}
