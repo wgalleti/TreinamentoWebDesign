@@ -97,9 +97,9 @@
             $(document).scroll(function(scroll){
                 var aut = $('body').scrollTop()
 
-                if (aut < 100) {
+                if (aut == 0) {
                     $('nav').removeClass('nav50')
-                } else if (aut > 100) {
+                } else {
                     $('nav').addClass('nav50')
                 }
             })

@@ -1,5 +1,7 @@
 var app = angular.module('app', ['ui.router']);
 
+app.constant('urlApi', 'http://127.0.0.1:9001/');
+
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 
 	$urlRouterProvider.otherwise('/home')
@@ -51,7 +53,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 });
 
 
-app.factory('contatos', function($http, $q){
+app.factory('contatos', function($http, $q, urlApi){
 	var contato  = {
 		enviar: enviar
 	}
@@ -62,7 +64,7 @@ app.factory('contatos', function($http, $q){
 		contato = $.param(contato);
 
 		$http
-			.post('http://192.168.25.11:9001/contatos/enviar', contato)
+			.post(urlApi + 'contatos/enviar', contato)
 			.then(
 				function(rest){
 					def.resolve();
@@ -76,7 +78,7 @@ app.factory('contatos', function($http, $q){
 	return contato;
 });
 
-app.factory('noticias', function($http, $q, $filter){
+app.factory('noticias', function($http, $q, $filter, urlApi){
 	var noticias = {
 		dados: [{
 			data: new Date(),
@@ -91,7 +93,7 @@ app.factory('noticias', function($http, $q, $filter){
 		var def = $q.defer();
 
 		$http
-			.get('http://192.168.25.11:9001/noticias')
+			.get(urlApi + 'noticias')
 			.then(
 				function(rest){
 					noticias.dados = rest.data
@@ -113,7 +115,7 @@ app.factory('noticias', function($http, $q, $filter){
 		noticia = $.param(noticia);
 
 		$http
-			.post('http://192.168.25.11:9001/noticias/adicionar', noticia)
+			.post(urlApi + 'noticias/adicionar', noticia)
 			.then(
 				function(rest){
 					var Ok = rest.data == 'Ok' ? true : false;

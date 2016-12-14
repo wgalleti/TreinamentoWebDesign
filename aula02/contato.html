@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Nome</label>
+						<label class="required">Nome</label>
 						<div class="input-group">
 							
 							<input type="text" class="form-input" name="nome" placeholder="Nome" ng-model="contato.form.nome" autofocus required>
@@ -17,7 +17,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Email</label>
+						<label class="required">Email</label>
 						<div class="input-group">
 							
 							<input type="email" class="form-input" name="email" placeholder="Email" ng-model="contato.form.email" required>
@@ -30,7 +30,7 @@
 						<label>Telefone</label>
 						<div class="input-group">
 							
-							<input type="text" class="form-input" name="telefone" placeholder="Telefone" ng-model="contato.form.telefone" required>
+							<input type="text" class="form-input" name="telefone" placeholder="Telefone" ng-model="contato.form.telefone">
 							<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label>Assunto</label>
+						<label class="required">Assunto</label>
 						<div class="input-group">
 							<input type="text" class="form-input" name="assunto" placeholder="Assunto" ng-model="contato.form.assunto" required>
 							<span class="input-group-addon"><i class="fa fa-question"></i></span>
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Mensagem</label>
+				<label class="required">Mensagem</label>
 				<textarea rows="10" class="form-input" name="texto" placeholder="Mensagem" ng-model="contato.form.mensagem" required></textarea>
 			</div>
 		</div>
