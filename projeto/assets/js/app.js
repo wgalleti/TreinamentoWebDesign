@@ -1,9 +1,9 @@
 (function () {
 	'use strict'
 
-	var app = angular.module('webTodo', ['ui.router', 'LocalStorageModule'])
+	var app = angular.module('webTodo', ['ui.router', 'LocalStorageModule', 'ui.bootstrap'])
 
-	app.constant('urlApi', 'http://127.0.0.1:9000/')
+	app.constant('urlApi', 'http://192.168.25.5:9001/')
 	app.config(config)
 
 	app.factory('authServices', authServices)
@@ -12,10 +12,15 @@
 	app.controller('LayoutController', LayoutController)
 	app.controller('LoginController', LoginController)
 	app.controller('TodoController', TodoController)
+	app.controller('TodoAddController', TodoAddController)
 
 
-	function config($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
-		
+	function config($stateProvider, $urlRouterProvider, localStorageServiceProvider, $httpProvider) {
+		$httpProvider
+			.defaults
+				.headers
+					.post['Content-Type'] = 'application/x-www-form-urlencoded'
+
 		$urlRouterProvider
 			.otherwise('/todo')
 
@@ -138,6 +143,7 @@
 
 	function todoServices($q, $http, urlApi){
 		var todo = {
+			ready: false,
 			data : [{
 				done: false,
 				text: 'Estruturar site',
@@ -153,10 +159,114 @@
 			},{
 				done: false,
 				text: 'Finalizar Todo',
-			},]
+			},],
+			load : load,
+			add: add,
+			done: done,
+			remove: remove,
 		}
 
 		return todo
+
+		function load() {
+			var def = $q.defer()
+			todo.ready = false
+			$http
+				.get(urlApi + 'todo')
+				.then(
+					function(rest){
+						todo.ready = true
+						var data = _PrepareDataGet(rest.data)
+						todo.data = angular.copy(data)
+
+						def.resolve(todo)
+					},
+					function(error){
+						def.reject(error)
+					}
+				)
+
+			return def.promise
+		}
+
+		function _PrepareDataGet(dataObject) {
+
+			for(var key in dataObject){
+				dataObject[key].done = dataObject[key].done == 1 ? true : false
+			}
+
+			return dataObject
+		}
+
+		function _PrepareDataSet(dataObject) {
+
+			var _dataObject = {
+				id: dataObject.id,
+				text: dataObject.text,
+				done: dataObject.done == true ? 1 : 0
+			}
+
+			return _dataObject
+		}
+
+		function done(dataObject) {
+			var def = $q.defer()
+			dataObject = _PrepareDataSet(dataObject)
+			var params = $.param(dataObject)
+
+			$http
+				.post(urlApi + 'todo/finalizar/' + dataObject.id, params)
+				.then(
+					function(){
+						def.resolve()
+					},
+					function(error){
+						def.reject(error)
+					}
+				)
+
+			return def.promise
+		}
+
+		function add(dataObject) {
+			var def = $q.defer()
+			dataObject = _PrepareDataSet(dataObject)
+			var params = $.param(dataObject)
+
+			$http
+				.post(urlApi + 'todo/adicionar/' + dataObject.id, params)
+				.then(
+					function(){
+						def.resolve()
+					},
+					function(error){
+						def.reject(error)
+					}
+				)
+
+			return def.promise
+		}
+
+		function remove(dataObject) {
+			var def = $q.defer()
+			dataObject = _PrepareDataSet(dataObject)
+			var params = $.param(dataObject)
+
+			$http
+				.post(urlApi + 'todo/remover/' + dataObject.id, params)
+				.then(
+					function(){
+						def.resolve()
+					},
+					function(error){
+						def.reject(error)
+					}
+				)
+
+			return def.promise
+		}
+
+
 	}
 
 	function LayoutController(authServices, $state){
@@ -198,20 +308,143 @@
 		}
 	}
 
-	function TodoController(todoServices) {
+	function TodoController(todoServices, $uibModal) {
 		var vm = this
+		var msg = ''
+		todoServices.load()
 		vm.dataService = todoServices
 
-		vm.done = function(dataObject, pos) {
-			console.log('ok')
+
+		vm.add = function(){
+			var modalInstance = $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'addModal.html',
+				controller: 'TodoAddController',
+				controllerAs: 'todo',
+			})
+
+			modalInstance
+				.result
+					.then(
+						function () {
+							todoServices.load()
+							swal({
+								title: "Beleza!",
+							  	text: 'Tarefa Adicionada!',
+							  	type: "success",
+							  	showConfirmButton: false,
+							  	timer: 1000,
+							})		
+
+						}, function (error) {
+							if (error) {							
+								swal({
+									title: "Ops! Alguma coisa deu errado!",
+								  	text: error,
+								  	type: "warning",
+								  	showConfirmButton: false,
+								  	timer: 2000,
+								})
+							}
+						}
+					)
+		}
+
+		vm.remove = function(dataObject) {
+			swal({
+				title: "PERAEEEE",
+				text: "Voce tem certeza que quer remover a tarefa?",
+				type: "warning",
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Rebenta ela!",
+				cancelButtonText: "Deixa queto!",
+				showCancelButton: true,
+				closeOnConfirm: false,
+				showLoaderOnConfirm: true,
+			},
+				function(){
+					
+					todoServices.remove(dataObject)
+						.then(
+							function(){
+								swal({
+									title: "Beleza!",
+								  	text: "Tarefa rodou!",
+								  	type: "success",
+								  	showConfirmButton: false,
+								  	timer: 1000,
+								})	
+								todoServices.load()	
+							},
+							function(error){
+								swal({
+									title: "Ops! Alguma coisa deu errado!",
+								  	text: error,
+								  	type: "warning",
+								})
+							}
+						)
+			})
+		}
+
+		vm.done = function(dataObject) {
 			if (dataObject.done) {
 				dataObject.done = false
+				msg = "Tarefa Reabilitada"
 			} else {
 				dataObject.done = true
+				msg = "Tarefa Finalizada"
 			}
+
+			todoServices.done(dataObject)
+				.then(
+					function(){
+						swal({
+							title: "Beleza!",
+						  	text: msg,
+						  	type: "success",
+						  	showConfirmButton: false,
+						  	timer: 1000,
+						})						
+					},
+					function(error) {
+						swal({
+							title: "Ops! Alguma coisa deu errado!",
+						  	text: error,
+						  	type: "warning"
+						})
+					}
+				)
+		}
+	}
+
+	function TodoAddController($uibModalInstance, todoServices) {
+		var vm = this
+
+		vm.ok = function () {
+
+			var newTodo = {
+				text: vm.form.text,
+				done: 0,
+			}
+
+			todoServices.add(newTodo)
+				.then(
+					function(){
+						$uibModalInstance.close()
+					},
+					function(error){
+						$uibModalInstance.dismiss(error)
+					}
+				)
+		}
+
+		vm.cancel = function () {
+			$uibModalInstance.dismiss()
 		}
 	}
 
 
-
-})(); 
+})();

@@ -191,3 +191,20 @@ body {
 .todo-done {
 	text-decoration: line-through;
 }
+
+
+.loading {
+	width: 64px;
+	height: 64px;
+	transition: .5s;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+.truncate {
+	display: inline-block;
+	width: 90%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

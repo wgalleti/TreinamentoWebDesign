@@ -1,7 +1,11 @@
-<div class="todo">
+<div class="loading" ng-if="!todo.dataService.ready">
+	<img src="/projeto/assets/img/4.gif" width="64" alt="Loading">
+</div>
+
+<div class="todo" ng-if="todo.dataService.ready">
 	<ul class="list-group ">
 		<li class="list-group-item" ng-repeat="value in todo.dataService.data">
-			<span ng-class="{'todo-done': value.done}">
+			<span ng-class="{'todo-done': value.done}" class="truncate">
 				{{value.text}}
 			</span>
 			<span class="pull-right">
@@ -12,6 +16,35 @@
 	</ul>
 </div>
 
-<button class="btn btn-success btn-circle btn-fixed">
+<button class="btn btn-success btn-circle btn-fixed" ng-click="todo.add()">
 	<i class="fa fa-plus fa-2x"></i>
 </button>
+
+
+<script type="text/ng-template" id="addModal.html">
+	<form name="formTodo">
+	    <div class="modal-header">
+	        <h3 class="modal-title">Adicionar tarefa!</h3>
+	    </div>
+	    <div class="modal-body">
+			<div class="form-group">
+				<div class="form-group">
+					<textarea type="text" class="form-control" placeholder="Texto" ng-model="todo.form.text" autofocus rows="10" required></textarea>
+				</div>
+			</div>
+	    </div>
+	    <div class="modal-footer">
+            <span class="pull-left">
+	            <button class="btn btn-warning" type="button" ng-click="todo.cancel()">
+					<i class="fa fa-remove fa-2x"></i>
+	            </button>        	
+            </span>
+
+            <span class="pull-right">
+	            <button class="btn btn-success" type="button" ng-click="todo.ok()" ng-disabled="formTodo.$invalid">
+					<i class="fa fa-check fa-2x"></i>
+	            </button>
+            </span>
+        </div>
+	</form>
+</script>
